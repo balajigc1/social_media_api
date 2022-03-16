@@ -26,10 +26,7 @@ def get_posts(db: Session = Depends(get_db)):
 
 @router.post("/posts", status_code=status.HTTP_201_CREATED, response_model=schemas.Post)
 def create_posts(post: schemas.PostCreate, db: Session = Depends(get_db)):
-    # cursor.execute("""INSERT INTO posts (title, content) VALUES (%s, %s) RETURNING * """, (post.title, post.content))
-    # new_post = cursor.fetchone()
-    # conn.commit() 
-
+    
     new_post = models.Post(**post.dict())
     db.add(new_post)
     db.commit()
